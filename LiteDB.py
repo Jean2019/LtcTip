@@ -1,12 +1,15 @@
 # coding: utf8
 
+
 import time
 import pymysql
 import yaml
 
+
 class DataManager:
 
 	def __init__(self):
+
 		ymlfile = open('config/config.yml', 'r')
 		cfg = yaml.load(ymlfile)
 		self.host = cfg['mysql']['dbHost']
@@ -28,6 +31,7 @@ class DataManager:
 			return True
 		except:
 			return False
+
 
 	def is_message_replied_to(self,messageID):
 		try:
