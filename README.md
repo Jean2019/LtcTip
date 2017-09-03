@@ -13,23 +13,29 @@ Python 2.7+
 MySQL 5.6+
 
 
-Lastest version of praw and pymysql
+
+Lastest version of praw, pymysql, pyyaml
 
 ```
-pip install pymysql
 pip install praw
+pip install pymysql
+pip install pyyaml
+
 ```
 
 or 
 
 ```
-pip install pymysql --upgrade
 pip install praw --upgrade
+pip install pymysql --upgrade
+pip install pyyaml --upgrade
 ```
 
 ### Configuration
 
-Open `LiteConfig.py` and fill the Reddit and MySQL sections.
+
+Open `config/config.yml` and fill the Reddit and MySQL sections.
+
 You can get Reddit credentials on https://ssl.reddit.com/prefs/apps
 
 #### Create MySQL tables

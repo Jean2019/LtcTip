@@ -1,19 +1,29 @@
 # coding: utf8
 
-import pymysql
+
 import time
-import LiteConfig
+import pymysql
+import yaml
+
 
 class DataManager:
 
 	def __init__(self):
+
+		ymlfile = open('config/config.yml', 'r')
+		cfg = yaml.load(ymlfile)
+		self.host = cfg['mysql']['dbHost']
+		self.user = cfg['mysql']['dbUser']
+		self.password = cfg['mysql']['dbPassword']
+		self.db_name = cfg['mysql']['dbName']
+
 		try:
-			self.conn = pymysql.connect(LiteConfig.dbHost, user=LiteConfig.dbUser, passwd=LiteConfig.dbPassword, db=LiteConfig.dbName, connect_timeout=5)
+			self.conn = pymysql.connect(host=self.host, user=self.user, passwd=self.password, db=self.db_name, connect_timeout=5)
 			self.cursor = self.conn.cursor()
 		except:
-			print "r"
+			print("r")
 
-	def setMessageRepliedTo(self,messageID):
+	def set_message_replied_to(self,messageID):
 		try:
 			req = "INSERT INTO Answered VALUES (NULL,\'"+str(messageID)+"\',\'"+time.strftime('%Y-%m-%d %H:%M:%S')+"\')"
 			self.cursor.execute(req)
@@ -22,7 +32,8 @@ class DataManager:
 		except:
 			return False
 
-	def isMessageRepliedTo(self,messageID):
+
+	def is_message_replied_to(self,messageID):
 		try:
 			req = "SELECT EXISTS(SELECT 1 FROM Answered WHERE post_id = \'"+str(messageID)+"\')"
 			self.cursor.execute(req)
